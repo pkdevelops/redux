@@ -1,6 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Redux = require('redux')
+import {createStore, combineReducers} from 'redux'
 
 const todo = (state, action) => {
 	switch (action.type) {
@@ -46,39 +47,7 @@ const visibilityFilter = (state = 'SHOW_ALL', action) => {
 	}
 }
 
-const todoApp = (state = {}, action) => {
-	return {
-		todos: todos(state.todos, action),
-		visibilityFilter: visibilityFilter(state.visibilityFilter, action)
-	}
-}
-
-/*
-const testAddTodo = () => {
-	const stateBefore = []
-	const action = {
-		type: 'ADD_TODO',
-		id: 0,
-		text: 'learn redux'
-	}
-	const stateAfter = [
-		{
-			id: 0,
-			text: 'learn redux',
-			completed: false
-		}
-	]
-	const toggleaction = {
-		type: 'TOGGLE_TODO',
-		id: 0
-	}
-	console.log(stateBefore)
-	const after = todos(stateBefore, action)
-	console.log(after)
-	const afterafter = todos(stateAfter, toggleaction)
-	console.log(afterafter)
-}
-*/
+const todoApp = combineReducers({ todos, visibilityFilter })
 
 const ToDo = () => (
 	<div>Todo</div>
@@ -90,9 +59,6 @@ const render = () => {
 
 render()
 
-
-
-import {createStore} from 'redux'
 const store = createStore(todoApp)
 const l = () => {
 	console.log(store.getState())
